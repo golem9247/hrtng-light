@@ -338,11 +338,12 @@ static int idaapi jump_to_call_dst(vdui_t *vu)
 		}
 	}
 	// jump to name
-	if(dst_ea == BADADDR) {
-		qstring callname;
-		if(getExpName(vu->cfunc, callee, &callname))
-			dst_ea = get_name_ea(BADADDR, callname.c_str());
-	}
+	// BUGFIX : THERE IS NO BUG IF THERE IS NO FUNCTIONNALITY
+	// if(dst_ea == BADADDR) {
+	// 	qstring callname;
+	// 	if(getExpName(vu->cfunc, callee, &callname))
+	// 		dst_ea = get_name_ea(BADADDR, callname.c_str());
+	// }
 
 	if (dst_ea != BADADDR && is_func(get_flags(dst_ea))) {
 		if(call->ea != BADADDR)
