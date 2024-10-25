@@ -302,6 +302,7 @@ static int idaapi jump_to_call_dst(vdui_t *vu)
 	if(!is_call(vu, &call))
 		return 0;
 
+
 	cexpr_t *callee = call->x;
 	ea_t dst_ea = BADADDR;
 	if (callee->op == cot_memptr || callee->op == cot_memref) {
@@ -311,7 +312,7 @@ static int idaapi jump_to_call_dst(vdui_t *vu)
 			callee = callee->x;
 		tinfo_t t = callee->x->type;
 		while (t.is_ptr_or_array())
-			t.remove_ptr_or_array();
+			t.remove_ptr_or_array();	
 		if (t.is_struct()) {
 			qstring sname;
 			if(t.get_type_name(&sname)) {
@@ -337,13 +338,20 @@ static int idaapi jump_to_call_dst(vdui_t *vu)
 			}
 		}
 	}
-	// jump to name
-	// BUGFIX : THERE IS NO BUG IF THERE IS NO FUNCTIONNALITY
-	// if(dst_ea == BADADDR) {
-	// 	qstring callname;
-	// 	if(getExpName(vu->cfunc, callee, &callname))
-	// 		dst_ea = get_name_ea(BADADDR, callname.c_str());
-	// }
+
+	if (dst_ea == BADADDR) {
+		ea_t dst_ea = vu->item.e->obj_ea;
+		if (dst_ea != BADADDR) {
+			return 0;
+		}
+	}
+
+	//jump to name
+	if(dst_ea == BADADDR) {
+		qstring callname;
+		if(getExpName(vu->cfunc, callee, &callname))
+			dst_ea = get_name_ea(BADADDR, callname.c_str());
+	}
 
 	if (dst_ea != BADADDR && is_func(get_flags(dst_ea))) {
 		if(call->ea != BADADDR)
