@@ -43,7 +43,7 @@
 #include "appcall_view.h"
 #include "rename.h"
 #include "comhelper.h"
-#include "apihashes.h"
+//#include "apihashes.h"
 #include "deinline.h"
 #include "deob.h"
 #include "unflat.h"
@@ -67,7 +67,7 @@ bool is_decryptable_obj(vdui_t *vu, ea_t *ea);
 bool is_number(vdui_t *vu);
 bool is_gap_field(vdui_t *vu, tinfo_t *ts, udm_t* memb);
 bool is_patched();
-bool create_dec_file();
+//bool create_dec_file();
 bool is_VT_assign(vdui_t *vu, tid_t *struc_id, ea_t *vt_ea);
 bool has_if42blocks(ea_t funcea);
 
@@ -84,10 +84,10 @@ ACT_DECL(fill_nops, return ((ctx->widget_type == BWN_DISASM) ? AST_ENABLE_FOR_WI
 ACT_DECL(searchNpatch, return ((ctx->widget_type == BWN_DISASM) ? AST_ENABLE_FOR_WIDGET : AST_DISABLE_FOR_WIDGET))
 ACT_DECL(dbg_patch, return ((ctx->widget_type != BWN_DISASM) ? AST_DISABLE_FOR_WIDGET : (is_debugger_on() ? AST_ENABLE : AST_DISABLE)))
 ACT_DECL(file_patch, return ((ctx->widget_type == BWN_DISASM) ? AST_ENABLE_FOR_WIDGET : AST_DISABLE_FOR_WIDGET))
-ACT_DECL(msigLoad, AST_ENABLE_ALW)
-ACT_DECL(msigSave, AST_ENABLE_ALW)
-ACT_DECL(apihashes, AST_ENABLE_ALW)
-ACT_DECL(create_dec, return (is_patched() ? AST_ENABLE : AST_DISABLE))
+//ACT_DECL(msigLoad, AST_ENABLE_ALW)
+//ACT_DECL(msigSave, AST_ENABLE_ALW)
+//ACT_DECL(apihashes, AST_ENABLE_ALW)
+//ACT_DECL(create_dec, return (is_patched() ? AST_ENABLE : AST_DISABLE))
 ACT_DECL(clear_hr_cache, AST_ENABLE_ALW)
 ACT_DECL(decomp_obfus, return ((ctx->widget_type == BWN_DISASM || ctx->widget_type == BWN_PSEUDOCODE) ? AST_ENABLE_FOR_WIDGET : AST_DISABLE_FOR_WIDGET))
 ACT_DECL(jmp2xref, return ((ctx->widget_type == BWN_DISASM || ctx->widget_type == BWN_PSEUDOCODE) ? AST_ENABLE_FOR_WIDGET : AST_DISABLE_FOR_WIDGET))
@@ -99,7 +99,7 @@ ACT_DECL(convert_to_golang_call , AST_ENABLE_FOR(vu->item.citype == VDI_FUNC))
 #endif // IDA_SDK_VERSION < 900
 ACT_DECL(convert_to_usercall , AST_ENABLE_FOR(vu->item.citype == VDI_FUNC))
 ACT_DECL(jump_to_indirect_call  , AST_ENABLE_FOR(is_call(vu, NULL)))
-ACT_DECL(zeal_doc_help       , AST_ENABLE_FOR(is_call(vu, NULL)))
+// ACT_DECL(zeal_doc_help       , AST_ENABLE_FOR(is_call(vu, NULL)))
 ACT_DECL(add_VT              , AST_ENABLE_FOR(is_VT_assign(vu, NULL, NULL)));
 ACT_DECL(add_VT_struct       , return ((ctx->widget_type != BWN_DISASM) ? AST_DISABLE_FOR_WIDGET : (((is_data(get_flags(ctx->cur_ea)) && is_func(get_flags(get_ea(ctx->cur_ea))))) ? AST_ENABLE : AST_DISABLE)))
 ACT_DECL(recast_item             ,  AST_ENABLE_FOR(is_recastable(vu, NULL)))
@@ -109,22 +109,22 @@ ACT_DECL(scan_array_string       , AST_ENABLE_FOR(is_array_char_assign(vu, NULL,
 ACT_DECL(decrypt_string_obj      , AST_ENABLE_FOR(is_decryptable_obj(vu, NULL)))
 ACT_DECL(decrypt_const           , AST_ENABLE_FOR(is_number(vu)))
 ACT_DECL(decrypt_data, flags64_t flg; return ((ctx->widget_type != BWN_DISASM) ? AST_DISABLE_FOR_WIDGET : ((flg = get_flags(ctx->cur_ea), /*has_value(flg) &&*/ (is_data(flg) || is_unknown(flg))) ? AST_ENABLE : AST_DISABLE)))
-ACT_DECL(do_appcall              , AST_ENABLE_FOR(is_appcallable(vu, NULL, NULL)))
+//ACT_DECL(do_appcall              , AST_ENABLE_FOR(is_appcallable(vu, NULL, NULL)))
 ACT_DECL(convert_gap             , AST_ENABLE_FOR(is_gap_field(vu, NULL, NULL)))
-ACT_DECL(disable_inlines         , AST_ENABLE_FOR(hasInlines(vu, NULL)))
-ACT_DECL(enable_inlines          , AST_ENABLE_FOR(hasInlines(vu, NULL)))
-ACT_DECL(rename_inline           , AST_ENABLE_FOR(is_nlib_inline(vu)))
-ACT_DECL(create_inline_gr        , return ((ctx->widget_type != BWN_DISASM) ? AST_DISABLE_FOR_WIDGET : ((get_view_renderer_type(ctx->widget) == TCCRT_GRAPH) ? AST_ENABLE : AST_DISABLE)))
-ACT_DECL(create_inline_sel       , return ((ctx->widget_type != BWN_PSEUDOCODE && ctx->widget_type != BWN_DISASM) ?  AST_DISABLE_FOR_WIDGET : (ctx->has_flag(ACF_HAS_SELECTION) ?  AST_ENABLE : AST_DISABLE)))
+// ACT_DECL(disable_inlines         , AST_ENABLE_FOR(hasInlines(vu, NULL)))
+// ACT_DECL(enable_inlines          , AST_ENABLE_FOR(hasInlines(vu, NULL)))
+// ACT_DECL(rename_inline           , AST_ENABLE_FOR(is_nlib_inline(vu)))
+// ACT_DECL(create_inline_gr        , return ((ctx->widget_type != BWN_DISASM) ? AST_DISABLE_FOR_WIDGET : ((get_view_renderer_type(ctx->widget) == TCCRT_GRAPH) ? AST_ENABLE : AST_DISABLE)))
+// ACT_DECL(create_inline_sel       , return ((ctx->widget_type != BWN_PSEUDOCODE && ctx->widget_type != BWN_DISASM) ?  AST_DISABLE_FOR_WIDGET : (ctx->has_flag(ACF_HAS_SELECTION) ?  AST_ENABLE : AST_DISABLE)))
 ACT_DECL(uf_enable               , AST_ENABLE_FOR(ufIsInGL(vu->mba->entry_ea)))
 ACT_DECL(uf_disable              , AST_ENABLE_FOR(ufIsInWL(vu->mba->entry_ea)))
 #if IDA_SDK_VERSION >= 750
 ACT_DECL(mavx_enable             , AST_ENABLE_FOR(isMicroAvx_avail() && !isMicroAvx_active()))
 ACT_DECL(mavx_disable            , AST_ENABLE_FOR(isMicroAvx_avail() &&  isMicroAvx_active()))
 #endif //IDA_SDK_VERSION >= 750
-ACT_DECL(msigAdd                 , AST_ENABLE_FOR_PC)
-ACT_DECL(selection2block         , return (ctx->widget_type != BWN_PSEUDOCODE ? AST_DISABLE_FOR_WIDGET : (ctx->has_flag(ACF_HAS_SELECTION) ? AST_ENABLE : AST_DISABLE)))
-ACT_DECL(clear_if42blocks         , AST_ENABLE_FOR(has_if42blocks(vu->cfunc->entry_ea)))
+//ACT_DECL(msigAdd                 , AST_ENABLE_FOR_PC)
+// ACT_DECL(selection2block         , return (ctx->widget_type != BWN_PSEUDOCODE ? AST_DISABLE_FOR_WIDGET : (ctx->has_flag(ACF_HAS_SELECTION) ? AST_ENABLE : AST_DISABLE)))
+// ACT_DECL(clear_if42blocks         , AST_ENABLE_FOR(has_if42blocks(vu->cfunc->entry_ea)))
 
 #undef AST_ENABLE_FOR
 #undef AST_ENABLE_FOR_PC
@@ -139,7 +139,7 @@ static const action_desc_t actions[] =
 #endif //IDA_SDK_VERSION < 900
 	ACT_DESC("[hrt] Convert to __usercall",          "U", convert_to_usercall),
 	ACT_DESC("[hrt] Jump to indirect call",          "J", jump_to_indirect_call),
-	ACT_DESC("[hrt] Zeal offline API help (zealdocs.org)",  "Ctrl-F1", zeal_doc_help),
+	//ACT_DESC("[hrt] Zeal offline API help (zealdocs.org)",  "Ctrl-F1", zeal_doc_help),
 	ACT_DESC("[hrt] Add VT",                         NULL, add_VT),
 	ACT_DESC("[hrt] Add VT struct",                  NULL, add_VT_struct),
 	ACT_DESC("[hrt] Recast item",                    "R", recast_item),
@@ -149,22 +149,22 @@ static const action_desc_t actions[] =
 	ACT_DESC("[hrt] Decrypt string",                 "D", decrypt_string_obj),
   ACT_DESC("[hrt] Decrypt imm const",              "D", decrypt_const),
   ACT_DESC("[hrt] Decrypt data",                   "Shift-D", decrypt_data),
-	ACT_DESC("[hrt] Mass strings decryption",        "A", do_appcall),
+	// ACT_DESC("[hrt] Mass strings decryption",        "A", do_appcall),
 	ACT_DESC("[hrt] Fix field at struct gap",         "F", convert_gap),
-	ACT_DESC("[hrt] Disable inlines",                NULL, disable_inlines),
-	ACT_DESC("[hrt] Enable inlines",                 NULL, enable_inlines),
-	ACT_DESC("[hrt] Rename inline...",                "N", rename_inline),
-	ACT_DESC("[hrt] Create 'inline' from grouped nodes",  NULL, create_inline_gr),
-	ACT_DESC("[hrt] Create 'inline' from selection",  NULL, create_inline_sel),
+	//ACT_DESC("[hrt] Disable inlines",                NULL, disable_inlines),
+	//ACT_DESC("[hrt] Enable inlines",                 NULL, enable_inlines),
+	//ACT_DESC("[hrt] Rename inline...",                "N", rename_inline),
+	//ACT_DESC("[hrt] Create 'inline' from grouped nodes",  NULL, create_inline_gr),
+	//ACT_DESC("[hrt] Create 'inline' from selection",  NULL, create_inline_sel),
 	ACT_DESC("[hrt] Enable Unflattener",              NULL, uf_enable),
 	ACT_DESC("[hrt] Disable Unflattener",             NULL, uf_disable),
 #if IDA_SDK_VERSION >= 750
   ACT_DESC("[hrt] Enable AVX lifter",              NULL, mavx_enable),
 	ACT_DESC("[hrt] Disable AVX lifter",             NULL, mavx_disable),
 #endif //IDA_SDK_VERSION >= 750
-	ACT_DESC("[hrt] Create MSIG for the function",    NULL, msigAdd),
-	ACT_DESC("[hrt] ~C~ollapse selection",              NULL, selection2block),
-	ACT_DESC("[hrt] Remove collapsible 'if(42) ...' blocks",  NULL, clear_if42blocks),
+	//ACT_DESC("[hrt] Create MSIG for the function",    NULL, msigAdd),
+	// ACT_DESC("[hrt] ~C~ollapse selection",              NULL, selection2block),
+	// ACT_DESC("[hrt] Remove collapsible 'if(42) ...' blocks",  NULL, clear_if42blocks),
 };
 
 //-------------------------------------------------------------------------
@@ -177,8 +177,8 @@ void add_hrt_popup_items(TWidget *view, TPopupMenu *p, vdui_t* vu)
 		attach_action_to_popup(view, p, ACT_NAME(convert_to_golang_call));
 #endif //IDA_SDK_VERSION < 900
 	}
-	if(is_call(vu, NULL))
-		attach_action_to_popup(view, p, ACT_NAME(zeal_doc_help));
+	// if(is_call(vu, NULL))
+	// 	attach_action_to_popup(view, p, ACT_NAME(zeal_doc_help));
 	if(is_VT_assign(vu, NULL, NULL))
 		attach_action_to_popup(view, p, ACT_NAME(add_VT));
 
@@ -199,8 +199,8 @@ void add_hrt_popup_items(TWidget *view, TPopupMenu *p, vdui_t* vu)
 
 	if (is_decryptable_obj(vu, NULL))
 		attach_action_to_popup(view, p, ACT_NAME(decrypt_string_obj));
-	if (is_appcallable(vu, NULL, NULL))
-		attach_action_to_popup(view, p, ACT_NAME(do_appcall));
+	// if (is_appcallable(vu, NULL, NULL))
+	// 	attach_action_to_popup(view, p, ACT_NAME(do_appcall));
 	if (is_number(vu)) {
 		attach_action_to_popup(view, p, ACT_NAME(decrypt_const));
 	}
@@ -208,21 +208,21 @@ void add_hrt_popup_items(TWidget *view, TPopupMenu *p, vdui_t* vu)
 		attach_action_to_popup(view, p, ACT_NAME(convert_gap));
 	attach_action_to_popup(view, p, ACT_NAME(jump_to_indirect_call));
 	bool bEnabled;
-	if (hasInlines(vu, &bEnabled)) {
-		if (bEnabled) {
-			if(is_nlib_inline(vu))
-				attach_action_to_popup(view, p, ACT_NAME(rename_inline));
-			attach_action_to_popup(view, p, ACT_NAME(disable_inlines));
-		} else {
-			attach_action_to_popup(view, p, ACT_NAME(enable_inlines));
-		}
-	}
-	attach_action_to_popup(view, p, ACT_NAME(create_inline_sel));
+	// if (hasInlines(vu, &bEnabled)) {
+	// 	if (bEnabled) {
+	// 		if(is_nlib_inline(vu))
+	// 			attach_action_to_popup(view, p, ACT_NAME(rename_inline));
+	// 		attach_action_to_popup(view, p, ACT_NAME(disable_inlines));
+	// 	} else {
+	// 		attach_action_to_popup(view, p, ACT_NAME(enable_inlines));
+	// 	}
+	// }
+	//attach_action_to_popup(view, p, ACT_NAME(create_inline_sel));
 	if(ufIsInGL(vu->mba->entry_ea))
 		attach_action_to_popup(view, p, ACT_NAME(uf_enable));
 	else if (ufIsInWL(vu->mba->entry_ea))
 		attach_action_to_popup(view, p, ACT_NAME(uf_disable));
-	attach_action_to_popup(view, p, ACT_NAME(msigAdd));
+	//attach_action_to_popup(view, p, ACT_NAME(msigAdd));
 #if IDA_SDK_VERSION >= 750
 	if(isMicroAvx_avail()) {
 		if(isMicroAvx_active())
@@ -231,9 +231,9 @@ void add_hrt_popup_items(TWidget *view, TPopupMenu *p, vdui_t* vu)
 			attach_action_to_popup(view, p, ACT_NAME(mavx_enable));
 	}
 #endif //IDA_SDK_VERSION >= 750
-	attach_action_to_popup(view, p, ACT_NAME(selection2block));
-	if (has_if42blocks(vu->cfunc->entry_ea))
-		attach_action_to_popup(view, p, ACT_NAME(clear_if42blocks));
+	// attach_action_to_popup(view, p, ACT_NAME(selection2block));
+	// if (has_if42blocks(vu->cfunc->entry_ea))
+	// 	attach_action_to_popup(view, p, ACT_NAME(clear_if42blocks));
 }
 
 void hrt_reg_act()
@@ -244,11 +244,11 @@ void hrt_reg_act()
 	COMPAT_register_and_attach_to_menu("Edit/Patch program/Assemble...", ACT_NAME(searchNpatch), "[hrt] Search & Patch...", NULL, SETMENU_INS, &searchNpatch, &PLUGIN);
 	COMPAT_register_and_attach_to_menu("Edit/Patch program/Assemble...", ACT_NAME(dbg_patch), "[hrt] Patch from debugger...", NULL, SETMENU_INS, &dbg_patch, &PLUGIN);
 	COMPAT_register_and_attach_to_menu("Edit/Patch program/Assemble...", ACT_NAME(file_patch), "[hrt] Patch from file...", NULL, SETMENU_INS, &file_patch, &PLUGIN);
-	COMPAT_register_and_attach_to_menu("Edit/Other/", ACT_NAME(apihashes), "[hrt] Turn on API~h~ashes scan...", NULL, SETMENU_INS, &apihashes, &PLUGIN);
+	//COMPAT_register_and_attach_to_menu("Edit/Other/", ACT_NAME(apihashes), "[hrt] Turn on API~h~ashes scan...", NULL, SETMENU_INS, &apihashes, &PLUGIN);
 	COMPAT_register_and_attach_to_menu("Edit/Other/", ACT_NAME(clear_hr_cache), "[hrt] Clear cached decompilation results", "`", SETMENU_INS, &clear_hr_cache, &PLUGIN);
-	COMPAT_register_and_attach_to_menu("File/Produce file/Create MAP file...", ACT_NAME(create_dec), "[hrt] Create DEC file...", NULL, SETMENU_INS, &create_dec, &PLUGIN);
-	COMPAT_register_and_attach_to_menu("File/Produce file/Create MAP file...", ACT_NAME(msigSave), "[hrt] Create MSIG file...", NULL, SETMENU_INS, &msigSave, &PLUGIN);
-	COMPAT_register_and_attach_to_menu("File/Load file/PDB file...", ACT_NAME(msigLoad), "[hrt] MSIG file...", NULL, SETMENU_INS, &msigLoad, &PLUGIN);
+	//COMPAT_register_and_attach_to_menu("File/Produce file/Create MAP file...", ACT_NAME(create_dec), "[hrt] Create DEC file...", NULL, SETMENU_INS, &create_dec, &PLUGIN);
+	//COMPAT_register_and_attach_to_menu("File/Produce file/Create MAP file...", ACT_NAME(msigSave), "[hrt] Create MSIG file...", NULL, SETMENU_INS, &msigSave, &PLUGIN);
+	//COMPAT_register_and_attach_to_menu("File/Load file/PDB file...", ACT_NAME(msigLoad), "[hrt] MSIG file...", NULL, SETMENU_INS, &msigLoad, &PLUGIN);
 	//COMPAT_register_and_attach_to_menu("View/Toolbars", ACT_NAME(kill_toolbars), "[hrt] Kill toolbars", NULL, SETMENU_INS, &kill_toolbars, &PLUGIN);
 	COMPAT_register_and_attach_to_menu("View/Open subviews/Generate pseudocode", ACT_NAME(decomp_here), "[hrt] Decompile obfuscated code", "Alt-F5", SETMENU_APP, &decomp_obfus, &PLUGIN);
 	COMPAT_register_and_attach_to_menu("Jump/Jump to xref to operand...", ACT_NAME(jmp2xref), "[hrt] Jump to xref Ex...", "Shift-X", SETMENU_APP, &jmp2xref, &PLUGIN);
@@ -270,11 +270,11 @@ void hrt_unreg_act()
 	detach_action_from_menu("Edit/Patch program/[hrt] Search & Patch...", ACT_NAME(searchNpatch));
 	detach_action_from_menu("Edit/Patch program/[hrt] Patch from debugger...", ACT_NAME(dbg_patch));
 	detach_action_from_menu("Edit/Patch program/[hrt] Patch from file...", ACT_NAME(file_patch));
-	detach_action_from_menu("Edit/Other/[hrt] Turn on APIhashes scan...", ACT_NAME(apihashes));
+	//detach_action_from_menu("Edit/Other/[hrt] Turn on APIhashes scan...", ACT_NAME(apihashes));
 	detach_action_from_menu("Edit/Other/[hrt] Clear cached decompilation results", ACT_NAME(clear_hr_cache));
-	detach_action_from_menu("File/Produce file/[hrt] Create DEC file...", ACT_NAME(create_dec));
-	detach_action_from_menu("File/Produce file/[hrt] Create MSIG file...", ACT_NAME(msigSave));
-	detach_action_from_menu("File/Load file/[hrt] MSIG file...", ACT_NAME(msigLoad));
+	//detach_action_from_menu("File/Produce file/[hrt] Create DEC file...", ACT_NAME(create_dec));
+	//detach_action_from_menu("File/Produce file/[hrt] Create MSIG file...", ACT_NAME(msigSave));
+	//detach_action_from_menu("File/Load file/[hrt] MSIG file...", ACT_NAME(msigLoad));
 	//detach_action_from_menu("View/[hrt] Kill toolbars", ACT_NAME(kill_toolbars));
 	detach_action_from_menu("View/Open subviews/[hrt] Decompile obfuscated code", ACT_NAME(decomp_obfus));
 	detach_action_from_menu("Jump/[hrt] Jump to xref Ex...", ACT_NAME(jmp2xref));
@@ -282,10 +282,10 @@ void hrt_unreg_act()
 	for (size_t i = 0, n = qnumber(actions); i < n; ++i)
 		unregister_action(actions[i].name);
 	//unregister_action(ACT_NAME(kill_toolbars));
-	unregister_action(ACT_NAME(create_dec));
-	unregister_action(ACT_NAME(apihashes));
-	unregister_action(ACT_NAME(msigLoad));
-	unregister_action(ACT_NAME(msigSave));
+	//unregister_action(ACT_NAME(create_dec));
+	//unregister_action(ACT_NAME(apihashes));
+	//unregister_action(ACT_NAME(msigLoad));
+	//unregister_action(ACT_NAME(msigSave));
 	unregister_action(ACT_NAME(dbg_patch));
 	unregister_action(ACT_NAME(file_patch));
 	unregister_action(ACT_NAME(searchNpatch));
@@ -360,15 +360,15 @@ ACT_DEF(jump_to_indirect_call)
 
 //-------------------------------------------------------------------------
 
-static const char create_dec_idc_args[] = { 0 };
-static error_t idaapi create_dec_idc(idc_value_t *argv, idc_value_t *res)
-{
-	msg("[hrt] create_dec is called \n");
-	if(create_dec_file())
-		return eOk;
-	return eOS;
-}
-static const ext_idcfunc_t create_dec_desc = { "create_dec", create_dec_idc, create_dec_idc_args, NULL, 0, EXTFUN_BASE };
+// static const char create_dec_idc_args[] = { 0 };
+// static error_t idaapi create_dec_idc(idc_value_t *argv, idc_value_t *res)
+// {
+// 	msg("[hrt] create_dec is called \n");
+// 	if(create_dec_file())
+// 		return eOk;
+// 	return eOS;
+// }
+// static const ext_idcfunc_t create_dec_desc = { "create_dec", create_dec_idc, create_dec_idc_args, NULL, 0, EXTFUN_BASE };
 
 static const char dump_strings_idc_args[] = { 0 };
 static error_t idaapi dump_strings_idc(idc_value_t *argv, idc_value_t *res)
@@ -484,7 +484,7 @@ static error_t idaapi dump_names_idc(idc_value_t *argv, idc_value_t *res)
 static const ext_idcfunc_t dump_names_desc = { "dump_names", dump_names_idc, dump_names_idc_args, NULL, 0, EXTFUN_BASE };
 void register_idc_functions()
 {
-	add_idc_func(create_dec_desc);
+	//add_idc_func(create_dec_desc);
 	add_idc_func(dump_strings_desc);
 	add_idc_func(dump_comments_desc);
 	add_idc_func(dump_names_desc);
@@ -492,7 +492,7 @@ void register_idc_functions()
 
 void unregister_idc_functions()
 {
-	del_idc_func(create_dec_desc.name);
+	//del_idc_func(create_dec_desc.name);
 	del_idc_func(dump_strings_desc.name);
 	del_idc_func(dump_comments_desc.name);
 	del_idc_func(dump_names_desc.name);
@@ -515,31 +515,31 @@ bool is_call(vdui_t *vu, cexpr_t **call)
 	return false;
 }
 
-ACT_DEF(zeal_doc_help)
-{
-	vdui_t *vu = get_widget_vdui(ctx->widget);
-	cexpr_t *call;
-	qstring name;
-	if(!is_call(vu, &call) || !getExpName(vu->cfunc, call->x, &name) || name.length() < 3)
-		return 0;
+// ACT_DEF(zeal_doc_help)
+// {
+// 	vdui_t *vu = get_widget_vdui(ctx->widget);
+// 	cexpr_t *call;
+// 	qstring name;
+// 	if(!is_call(vu, &call) || !getExpName(vu->cfunc, call->x, &name) || name.length() < 3)
+// 		return 0;
 
-	stripName(&name);
-	if (name.last() == 'A' || name.last() == 'W')
-		name.remove_last();
+// 	stripName(&name);
+// 	if (name.last() == 'A' || name.last() == 'W')
+// 		name.remove_last();
 
-	name.insert(0, "zeal ");
+// 	name.insert(0, "zeal ");
 
-  launch_process_params_t lpp;
-  lpp.flags = LP_USE_SHELL;
-  lpp.args = name.c_str();
+//   launch_process_params_t lpp;
+//   lpp.flags = LP_USE_SHELL;
+//   lpp.args = name.c_str();
 
-  qstring errbuf;
-  if(launch_process(lpp, &errbuf) == NULL) {
-    msg("[hrt] launch_process(%s) error: %s\n", lpp.args, errbuf.c_str());
-    return 0;
-  }
-  return 1;
-}
+//   qstring errbuf;
+//   if(launch_process(lpp, &errbuf) == NULL) {
+//     msg("[hrt] launch_process(%s) error: %s\n", lpp.args, errbuf.c_str());
+//     return 0;
+//   }
+//   return 1;
+// }
 
 bool is_VT_assign(vdui_t *vu, tid_t *struc_id, ea_t *vt_ea)
 {
@@ -1462,187 +1462,187 @@ ACT_DEF(convert_gap)
 }
 
 //-----------------------------------------------------
-ACT_DEF(disable_inlines)
-{
-	vdui_t *vu = get_widget_vdui(ctx->widget);
-	XXable_inlines(vu->mba->entry_ea, true);
-	vu->refresh_view(true);
-	return 0;
-}
+// ACT_DEF(disable_inlines)
+// {
+// 	vdui_t *vu = get_widget_vdui(ctx->widget);
+// 	XXable_inlines(vu->mba->entry_ea, true);
+// 	vu->refresh_view(true);
+// 	return 0;
+// }
 
-ACT_DEF(enable_inlines)
-{
-	vdui_t *vu = get_widget_vdui(ctx->widget);
-	XXable_inlines(vu->mba->entry_ea, false);
-	vu->refresh_view(true);
-	return 0;
-}
+// ACT_DEF(enable_inlines)
+// {
+// 	vdui_t *vu = get_widget_vdui(ctx->widget);
+// 	XXable_inlines(vu->mba->entry_ea, false);
+// 	vu->refresh_view(true);
+// 	return 0;
+// }
 
-ACT_DEF(rename_inline)
-{
-	vdui_t *vu = get_widget_vdui(ctx->widget);
-	if (ren_inline(vu))
-		REFRESH_FUNC_CTEXT(vu);
-	return 0;
-}
+// ACT_DEF(rename_inline)
+// {
+// 	vdui_t *vu = get_widget_vdui(ctx->widget);
+// 	if (ren_inline(vu))
+// 		REFRESH_FUNC_CTEXT(vu);
+// 	return 0;
+// }
 
-ACT_DEF(create_inline_gr)
-{
-	if (ctx->widget_type != BWN_DISASM || get_view_renderer_type(ctx->widget) != TCCRT_GRAPH || !ctx->cur_func)
-		return 0;
+// ACT_DEF(create_inline_gr)
+// {
+// 	if (ctx->widget_type != BWN_DISASM || get_view_renderer_type(ctx->widget) != TCCRT_GRAPH || !ctx->cur_func)
+// 		return 0;
 
-	graph_viewer_t *gv = ctx->widget; //get_graph_viewer(ctx->widget);
-	interactive_graph_t *gr = get_viewer_graph(gv);
-	if (!gr)
-		return 0;
+// 	graph_viewer_t *gv = ctx->widget; //get_graph_viewer(ctx->widget);
+// 	interactive_graph_t *gr = get_viewer_graph(gv);
+// 	if (!gr)
+// 		return 0;
 
-	int curnode = viewer_get_curnode(gv);
+// 	int curnode = viewer_get_curnode(gv);
 
-#if 0 //doesnt work: viewer_create_groups modifies graph too late - when control is returned to GUI
-	if (!gr->is_group_node(curnode)) {
-		screen_graph_selection_t sgs;
-		if (viewer_get_selection(gv, &sgs) && sgs.size() > 1) {
-			groups_crinfos_t gis;
-			group_crinfo_t &gi = gis.push_back();
-			gi.text = "inline";
-			for (size_t i = 0; i < sgs.size(); ++i)
-				if (sgs[i].is_node)
-					gi.nodes.push_back(sgs[i].node);
-			intvec_t out_group_nodes;
-			if (viewer_create_groups(gv, &out_group_nodes, gis)) {
-				gr = get_viewer_graph(gv);
-				curnode = viewer_get_curnode(gv);
-			}
-		}
-	}
-#endif
+// #if 0 //doesnt work: viewer_create_groups modifies graph too late - when control is returned to GUI
+// 	if (!gr->is_group_node(curnode)) {
+// 		screen_graph_selection_t sgs;
+// 		if (viewer_get_selection(gv, &sgs) && sgs.size() > 1) {
+// 			groups_crinfos_t gis;
+// 			group_crinfo_t &gi = gis.push_back();
+// 			gi.text = "inline";
+// 			for (size_t i = 0; i < sgs.size(); ++i)
+// 				if (sgs[i].is_node)
+// 					gi.nodes.push_back(sgs[i].node);
+// 			intvec_t out_group_nodes;
+// 			if (viewer_create_groups(gv, &out_group_nodes, gis)) {
+// 				gr = get_viewer_graph(gv);
+// 				curnode = viewer_get_curnode(gv);
+// 			}
+// 		}
+// 	}
+// #endif
 
-	if (curnode == -1 || !gr->is_group_node(curnode)) {
-		warning("[hrt] no currently selected node or curnode is not 'group'");// or there are not selected items in the graph");
-		return 0;
-	}
+// 	if (curnode == -1 || !gr->is_group_node(curnode)) {
+// 		warning("[hrt] no currently selected node or curnode is not 'group'");// or there are not selected items in the graph");
+// 		return 0;
+// 	}
 
-	int group = gr->get_node_group(curnode);
-	int head = gr->get_first_subgraph_node(group);
-	if (head == -1 || gr->nsucc(group) != 1) {
-		warning("[hrt] to be 'inline' group must have single exit node (not part of 'group')");
-		return 0;
-	}
+// 	int group = gr->get_node_group(curnode);
+// 	int head = gr->get_first_subgraph_node(group);
+// 	if (head == -1 || gr->nsucc(group) != 1) {
+// 		warning("[hrt] to be 'inline' group must have single exit node (not part of 'group')");
+// 		return 0;
+// 	}
 
-#if IDA_SDK_VERSION < 740 // at least from ida7.4 (maybe early) gr->org_preds is broken, and this check always fails
-	//check if all predecessors of group is included into original group head predecessors,
-	//so there are no predecessors targeted to other group memners
-	const intvec_t &grp_preds = gr->predset(group);
-	const intvec_t &head_preds = gr->org_preds[head];
-	bool preds_ok = true;
+// #if IDA_SDK_VERSION < 740 // at least from ida7.4 (maybe early) gr->org_preds is broken, and this check always fails
+// 	//check if all predecessors of group is included into original group head predecessors,
+// 	//so there are no predecessors targeted to other group memners
+// 	const intvec_t &grp_preds = gr->predset(group);
+// 	const intvec_t &head_preds = gr->org_preds[head];
+// 	bool preds_ok = true;
 
-#if 0
-	msg("group %d preds :", group);
-	for (size_t i = 0; i < grp_preds.size(); i++)
-		msg("%d ", grp_preds[i]);
-	msg("\nhead %d preds :", head);
-	for (size_t i = 0; i < head_preds.size(); i++)
-		msg("%d ", head_preds[i]);
-	msg("\n");
-#endif
+// #if 0
+// 	msg("group %d preds :", group);
+// 	for (size_t i = 0; i < grp_preds.size(); i++)
+// 		msg("%d ", grp_preds[i]);
+// 	msg("\nhead %d preds :", head);
+// 	for (size_t i = 0; i < head_preds.size(); i++)
+// 		msg("%d ", head_preds[i]);
+// 	msg("\n");
+// #endif
 
-	for (size_t i = 0; i < grp_preds.size(); i++) {
-		if (!head_preds.has(grp_preds[i])) {
-			preds_ok = false;
-			break;
-		}
-	}
-	if (!preds_ok) {
-		warning("[hrt] to be 'inline' group must have single entry node (head of 'group')");
-		return 0;
-	}
-#endif //IDA_SDK_VERSION < 740
+// 	for (size_t i = 0; i < grp_preds.size(); i++) {
+// 		if (!head_preds.has(grp_preds[i])) {
+// 			preds_ok = false;
+// 			break;
+// 		}
+// 	}
+// 	if (!preds_ok) {
+// 		warning("[hrt] to be 'inline' group must have single entry node (head of 'group')");
+// 		return 0;
+// 	}
+// #endif //IDA_SDK_VERSION < 740
 
-	//How to correctly get group title?
-	node_info_t ni;
-	if (get_node_info(&ni, gr->gid, group)) {
-		msg("[hrt] converting group '%s' to inline\n", ni.text.c_str());
-		qflow_chart_t fc;
-		fc.create("tmpfc", ctx->cur_func, ctx->cur_func->start_ea, ctx->cur_func->end_ea, FC_NOEXT);
-		if (fc.size() == gr->org_succs.size()) {
-			rangevec_t ranges;
-			for (int node = gr->get_first_subgraph_node(group); node != -1; node = gr->get_next_subgraph_node(group, node)) {
-				QASSERT(100202, node < fc.size());
-				const qbasic_block_t* bb = &fc.blocks[node];
-				msg("[hrt]    %d: %a-%a\n", node, bb->start_ea, bb->end_ea);
-				ranges.push_back(range_t(bb->start_ea, bb->end_ea));
-			}
-			mba_ranges_t mbr(ranges);
-			hexrays_failure_t hf;
-			ea_t 	entry_ea = ranges.front().start_ea;
-			XXable_inlines(entry_ea, true);
-			mbl_array_t *mba = gen_microcode(mbr, &hf, NULL, DECOMP_NO_WAIT | DECOMP_NO_FRAME /*| DECOMP_NO_CACHE*/, DEINLINE_MATURITY);
-			XXable_inlines(entry_ea, false);
-			if (mba && hf.code == MERR_OK) {
-				qstring err;
-				if(!inl_create_from_whole_mba(mba, ni.text.c_str(), &err) && err.length())
-					warning("[hrt] %s\n", err.c_str());
-			} else {
-				warning("[hrt] gen_microcode error %d: %s\n", hf.code, hf.desc().c_str());
-			}
-			delete mba;
-		}
-	}
-	return 0;
-}
+// 	//How to correctly get group title?
+// 	node_info_t ni;
+// 	if (get_node_info(&ni, gr->gid, group)) {
+// 		msg("[hrt] converting group '%s' to inline\n", ni.text.c_str());
+// 		qflow_chart_t fc;
+// 		fc.create("tmpfc", ctx->cur_func, ctx->cur_func->start_ea, ctx->cur_func->end_ea, FC_NOEXT);
+// 		if (fc.size() == gr->org_succs.size()) {
+// 			rangevec_t ranges;
+// 			for (int node = gr->get_first_subgraph_node(group); node != -1; node = gr->get_next_subgraph_node(group, node)) {
+// 				QASSERT(100202, node < fc.size());
+// 				const qbasic_block_t* bb = &fc.blocks[node];
+// 				msg("[hrt]    %d: %a-%a\n", node, bb->start_ea, bb->end_ea);
+// 				ranges.push_back(range_t(bb->start_ea, bb->end_ea));
+// 			}
+// 			mba_ranges_t mbr(ranges);
+// 			hexrays_failure_t hf;
+// 			ea_t 	entry_ea = ranges.front().start_ea;
+// 			XXable_inlines(entry_ea, true);
+// 			mbl_array_t *mba = gen_microcode(mbr, &hf, NULL, DECOMP_NO_WAIT | DECOMP_NO_FRAME /*| DECOMP_NO_CACHE*/, DEINLINE_MATURITY);
+// 			XXable_inlines(entry_ea, false);
+// 			if (mba && hf.code == MERR_OK) {
+// 				qstring err;
+// 				if(!inl_create_from_whole_mba(mba, ni.text.c_str(), &err) && err.length())
+// 					warning("[hrt] %s\n", err.c_str());
+// 			} else {
+// 				warning("[hrt] gen_microcode error %d: %s\n", hf.code, hf.desc().c_str());
+// 			}
+// 			delete mba;
+// 		}
+// 	}
+// 	return 0;
+// }
 
-ACT_DEF(create_inline_sel)
-{
-	ea_t eaBgn = BADADDR;
-	ea_t eaEnd = BADADDR;
-	if (!ctx->has_flag(ACF_HAS_SELECTION) || !read_range_selection(ctx->widget, &eaBgn, &eaEnd))
-		return 0;
+// ACT_DEF(create_inline_sel)
+// {
+// 	ea_t eaBgn = BADADDR;
+// 	ea_t eaEnd = BADADDR;
+// 	if (!ctx->has_flag(ACF_HAS_SELECTION) || !read_range_selection(ctx->widget, &eaBgn, &eaEnd))
+// 		return 0;
 
-	if (ctx->widget_type == BWN_DISASM) {
-		mba_ranges_t mbr;
-		mbr.ranges.push_back(range_t(eaBgn, eaEnd));
-		hexrays_failure_t hf;
-		qstring err;
-		XXable_inlines(eaBgn, true);
-		mbl_array_t *mba = gen_microcode(mbr, &hf, NULL, DECOMP_NO_WAIT | DECOMP_NO_FRAME /*| DECOMP_NO_CACHE*/, DEINLINE_MATURITY);
-		XXable_inlines(eaBgn, false);
-		if (mba && hf.code == MERR_OK) {
-			qstring name;
-			name.cat_sprnt("inline_%a_%a", eaBgn, eaEnd);
-			if (inl_create_from_whole_mba(mba, name.c_str(), &err)) {
-				unmark_selection();
-			}
-		} else {
-			err.sprnt("gen_microcode error %d: %s\n", hf.code, hf.desc().c_str());
-		}
-		delete mba;
-		if (err.length())
-			warning("[hrt] %s\n", err.c_str());
-		return 0;
-	}
+// 	if (ctx->widget_type == BWN_DISASM) {
+// 		mba_ranges_t mbr;
+// 		mbr.ranges.push_back(range_t(eaBgn, eaEnd));
+// 		hexrays_failure_t hf;
+// 		qstring err;
+// 		XXable_inlines(eaBgn, true);
+// 		mbl_array_t *mba = gen_microcode(mbr, &hf, NULL, DECOMP_NO_WAIT | DECOMP_NO_FRAME /*| DECOMP_NO_CACHE*/, DEINLINE_MATURITY);
+// 		XXable_inlines(eaBgn, false);
+// 		if (mba && hf.code == MERR_OK) {
+// 			qstring name;
+// 			name.cat_sprnt("inline_%a_%a", eaBgn, eaEnd);
+// 			if (inl_create_from_whole_mba(mba, name.c_str(), &err)) {
+// 				unmark_selection();
+// 			}
+// 		} else {
+// 			err.sprnt("gen_microcode error %d: %s\n", hf.code, hf.desc().c_str());
+// 		}
+// 		delete mba;
+// 		if (err.length())
+// 			warning("[hrt] %s\n", err.c_str());
+// 		return 0;
+// 	}
 
-	QASSERT(100204, ctx->widget_type == BWN_PSEUDOCODE);
-	vdui_t *vu = get_widget_vdui(ctx->widget);
+// 	QASSERT(100204, ctx->widget_type == BWN_PSEUDOCODE);
+// 	vdui_t *vu = get_widget_vdui(ctx->widget);
 
-	//align eaBgn/eaEnd to blocks boundaries 
-	//msg("[hrt] %a-%a: range selected for inline\n", eaBgn, eaEnd);
-	qflow_chart_t fc;
-	fc.create("tmpfc", ctx->cur_func, ctx->cur_func->start_ea, ctx->cur_func->end_ea, 0);
-	for (int n = 0; n < fc.size(); n++) {
-		const qbasic_block_t* blk = &fc.blocks[n];
-		msg("[hrt]    %d: %a-%a\n", n, blk->start_ea, blk->end_ea);
-		if (blk->start_ea <= eaBgn && eaBgn < blk->end_ea)
-			eaBgn = blk->start_ea;
-		else if (blk->start_ea < eaEnd && eaEnd < blk->end_ea)
-			eaEnd = blk->start_ea;
-	}
-	//msg("[hrt] %a-%a: inline applicant aligned to basic block boundaries\n", eaBgn, eaEnd);
+// 	//align eaBgn/eaEnd to blocks boundaries 
+// 	//msg("[hrt] %a-%a: range selected for inline\n", eaBgn, eaEnd);
+// 	qflow_chart_t fc;
+// 	fc.create("tmpfc", ctx->cur_func, ctx->cur_func->start_ea, ctx->cur_func->end_ea, 0);
+// 	for (int n = 0; n < fc.size(); n++) {
+// 		const qbasic_block_t* blk = &fc.blocks[n];
+// 		msg("[hrt]    %d: %a-%a\n", n, blk->start_ea, blk->end_ea);
+// 		if (blk->start_ea <= eaBgn && eaBgn < blk->end_ea)
+// 			eaBgn = blk->start_ea;
+// 		else if (blk->start_ea < eaEnd && eaEnd < blk->end_ea)
+// 			eaEnd = blk->start_ea;
+// 	}
+// 	//msg("[hrt] %a-%a: inline applicant aligned to basic block boundaries\n", eaBgn, eaEnd);
 
-	selection2inline(eaBgn, eaEnd);
-	XXable_inlines(vu->mba->entry_ea, false);
-	vu->refresh_view(true);
-	return 0;
-}
+// 	selection2inline(eaBgn, eaEnd);
+// 	XXable_inlines(vu->mba->entry_ea, false);
+// 	vu->refresh_view(true);
+// 	return 0;
+// }
 
 //-----------------------------------------------------
 static bool save_if42blocks(ea_t funcea, const rangevec_t& ranges)
@@ -1772,43 +1772,43 @@ void make_if42blocks(cfunc_t *cfunc)
 		makeif42block(cfunc, r.start_ea, r.end_ea);
 }
 
-ACT_DEF(selection2block)
-{
-	QASSERT(100107, ctx->widget_type == BWN_PSEUDOCODE && ctx->has_flag(ACF_HAS_SELECTION));
-	ea_t eaBgn = BADADDR;
-	ea_t eaEnd = BADADDR;
-	if (!read_range_selection(ctx->widget, &eaBgn, &eaEnd) || eaBgn >= eaEnd) {
-		warning("[hrt] Bad selection %a - %a", eaBgn, eaEnd);
-		return 0;
-	}
+// ACT_DEF(selection2block)
+// {
+// 	QASSERT(100107, ctx->widget_type == BWN_PSEUDOCODE && ctx->has_flag(ACF_HAS_SELECTION));
+// 	ea_t eaBgn = BADADDR;
+// 	ea_t eaEnd = BADADDR;
+// 	if (!read_range_selection(ctx->widget, &eaBgn, &eaEnd) || eaBgn >= eaEnd) {
+// 		warning("[hrt] Bad selection %a - %a", eaBgn, eaEnd);
+// 		return 0;
+// 	}
 
-	vdui_t* vu = get_widget_vdui(ctx->widget);
-	if (makeif42block(vu->cfunc, eaBgn, eaEnd)) {
-		rangevec_t rv;
-		load_if42blocks(vu->cfunc->entry_ea, rv);
-		rv.push_back(range_t(eaBgn, eaEnd));
-		save_if42blocks(vu->cfunc->entry_ea, rv);
-		user_iflags_insert(vu->cfunc->user_iflags, citem_locator_t(eaBgn, cit_if), CIT_COLLAPSED);
-		save_user_iflags(vu->cfunc->entry_ea, vu->cfunc->user_iflags);
-		vu->cfunc->verify(ALLOW_UNUSED_LABELS, false);
-		REFRESH_FUNC_CTEXT(vu);
-#if IDA_SDK_VERSION < 810 || IDA_SDK_VERSION > 830
-		unmark_selection();                //TODO: IDA 8.1 crash sometimes randomly on these calls, check with other IDA versions
-		jumpto(eaBgn, -1, UIJMP_DONTPUSH); //TODO: IDA 8.3 also
-#endif //IDA_SDK_VERSION < 810 || IDA_SDK_VERSION > 830
-		return 0;
-	}
-	warning("[hrt] Bad selection %a - %a\nStart and End addresses must belong to the same block", eaBgn, eaEnd);
-	return 0;
-}
+// 	vdui_t* vu = get_widget_vdui(ctx->widget);
+// 	if (makeif42block(vu->cfunc, eaBgn, eaEnd)) {
+// 		rangevec_t rv;
+// 		load_if42blocks(vu->cfunc->entry_ea, rv);
+// 		rv.push_back(range_t(eaBgn, eaEnd));
+// 		save_if42blocks(vu->cfunc->entry_ea, rv);
+// 		user_iflags_insert(vu->cfunc->user_iflags, citem_locator_t(eaBgn, cit_if), CIT_COLLAPSED);
+// 		save_user_iflags(vu->cfunc->entry_ea, vu->cfunc->user_iflags);
+// 		vu->cfunc->verify(ALLOW_UNUSED_LABELS, false);
+// 		REFRESH_FUNC_CTEXT(vu);
+// #if IDA_SDK_VERSION < 810 || IDA_SDK_VERSION > 830
+// 		unmark_selection();                //TODO: IDA 8.1 crash sometimes randomly on these calls, check with other IDA versions
+// 		jumpto(eaBgn, -1, UIJMP_DONTPUSH); //TODO: IDA 8.3 also
+// #endif //IDA_SDK_VERSION < 810 || IDA_SDK_VERSION > 830
+// 		return 0;
+// 	}
+// 	warning("[hrt] Bad selection %a - %a\nStart and End addresses must belong to the same block", eaBgn, eaEnd);
+// 	return 0;
+// }
 
-ACT_DEF(clear_if42blocks)
-{
-	vdui_t* vu = get_widget_vdui(ctx->widget);
-	if (del_if42blocks(vu->cfunc->entry_ea))
-		vu->refresh_view(false);
-	return 0;
-}
+// ACT_DEF(clear_if42blocks)
+// {
+// 	vdui_t* vu = get_widget_vdui(ctx->widget);
+// 	if (del_if42blocks(vu->cfunc->entry_ea))
+// 		vu->refresh_view(false);
+// 	return 0;
+// }
 
 //-----------------------------------------------------
 ACT_DEF(uf_enable)
@@ -2318,35 +2318,35 @@ ACT_DEF(file_patch)
   return 1;
 }
 
-//------------------------------------------------
-ACT_DEF(apihashes)
-{
-	apihashes_init();
-	return 1;
-}
+// //------------------------------------------------
+// ACT_DEF(apihashes)
+// {
+// 	apihashes_init();
+// 	return 1;
+// }
 
 //------------------------------------------------
-ACT_DEF(msigLoad)
-{
-	msig_load();
-	return 1;
-}
+// ACT_DEF(msigLoad)
+// {
+// 	msig_load();
+// 	return 1;
+// }
 
-ACT_DEF(msigSave)
-{
-	msig_save();
-	return 1;
-}
+// ACT_DEF(msigSave)
+// {
+// 	msig_save();
+// 	return 1;
+// }
 
-ACT_DEF(msigAdd)
-{
-	vdui_t& vu = *get_widget_vdui(ctx->widget);
-	if (has_cached_cfunc(vu.cfunc->entry_ea))
-		vu.refresh_view(true);
+// ACT_DEF(msigAdd)
+// {
+// 	vdui_t& vu = *get_widget_vdui(ctx->widget);
+// 	if (has_cached_cfunc(vu.cfunc->entry_ea))
+// 		vu.refresh_view(true);
 
-	msig_add(vu.mba);
-	return 1;
-}
+// 	msig_add(vu.mba);
+// 	return 1;
+// }
 
 //------------------------------------------------
 bool is_patched()
@@ -2355,58 +2355,58 @@ bool is_patched()
 	return true;
 }
 
-int idaapi create_dec_cb(ea_t ea, qoff64_t fpos, uint64 orig, uint64 patched, void *ud)
-{
-	if(fpos != -1) {
-		FILE* f = (FILE*)ud;
-		qfseek(f, fpos, 0);
-		qfwrite(f, &patched, 1);
-	}
-	return 0;
-}
+// int idaapi create_dec_cb(ea_t ea, qoff64_t fpos, uint64 orig, uint64 patched, void *ud)
+// {
+// 	if(fpos != -1) {
+// 		FILE* f = (FILE*)ud;
+// 		qfseek(f, fpos, 0);
+// 		qfwrite(f, &patched, 1);
+// 	}
+// 	return 0;
+// }
 
-bool create_dec_file()
-{
-	char filename[QMAXPATH2];
-	get_input_file_path(filename, QMAXPATH2);
+// bool create_dec_file()
+// {
+// 	char filename[QMAXPATH2];
+// 	get_input_file_path(filename, QMAXPATH2);
 
-	if(!qfileexist(filename)) {
-		qgetcwd(filename, QMAXPATH2);
-		size_t dirlen = qstrlen(filename);
-		filename[dirlen] = DIRCHAR;
-		get_root_filename(filename + dirlen + 1, QMAXPATH2);
-		if(!qfileexist(filename)) {
-			msg("[hrt] '%s' is not exist\n", filename);
-			return false;
-		}
-	}
-	qstring newFilename = filename;
-	newFilename.append(".dec");
-	show_wait_box("HIDECANCEL\nCreating %s", newFilename.c_str());
+// 	if(!qfileexist(filename)) {
+// 		qgetcwd(filename, QMAXPATH2);
+// 		size_t dirlen = qstrlen(filename);
+// 		filename[dirlen] = DIRCHAR;
+// 		get_root_filename(filename + dirlen + 1, QMAXPATH2);
+// 		if(!qfileexist(filename)) {
+// 			msg("[hrt] '%s' is not exist\n", filename);
+// 			return false;
+// 		}
+// 	}
+// 	qstring newFilename = filename;
+// 	newFilename.append(".dec");
+// 	show_wait_box("HIDECANCEL\nCreating %s", newFilename.c_str());
 
-	bool res = false;
-	if (qcopyfile(filename, newFilename.c_str()) >= 0) {
-		FILE * file = fopenM(newFilename.c_str());
-		if (file) {
-			ea_t startEa = inf_get_min_ea(); //inf_get_omin_ea(); wrong values for rebased
-			ea_t endEa   = inf_get_max_ea(); //inf_get_omax_ea();
-			visit_patched_bytes(startEa, endEa, create_dec_cb, file);
-			qfclose(file);
-			res = true;
-			msg("[hrt] '%s' (%a-%a) is created\n", newFilename.c_str(), startEa, endEa);
-		}
-	} else {
-		msg("[hrt] copyfile(\"%s\", \"%s\") failed\n", filename, newFilename.c_str());
-	}
-	hide_wait_box();
-	return res;
-}
+// 	bool res = false;
+// 	if (qcopyfile(filename, newFilename.c_str()) >= 0) {
+// 		FILE * file = fopenM(newFilename.c_str());
+// 		if (file) {
+// 			ea_t startEa = inf_get_min_ea(); //inf_get_omin_ea(); wrong values for rebased
+// 			ea_t endEa   = inf_get_max_ea(); //inf_get_omax_ea();
+// 			visit_patched_bytes(startEa, endEa, create_dec_cb, file);
+// 			qfclose(file);
+// 			res = true;
+// 			msg("[hrt] '%s' (%a-%a) is created\n", newFilename.c_str(), startEa, endEa);
+// 		}
+// 	} else {
+// 		msg("[hrt] copyfile(\"%s\", \"%s\") failed\n", filename, newFilename.c_str());
+// 	}
+// 	hide_wait_box();
+// 	return res;
+// }
 
-ACT_DEF(create_dec)
-{
-	create_dec_file();
-	return 1;
-}
+// ACT_DEF(create_dec)
+// {
+// 	create_dec_file();
+// 	return 1;
+// }
 
 //------------------------------------------------
 ACT_DEF(clear_hr_cache)
@@ -3235,10 +3235,10 @@ ACT_DEF(decrypt_data)
 
 //--------------------------------------------------------------------------
 
-ACT_DEF(do_appcall)
-{
-	return do_appcall2(get_widget_vdui(ctx->widget));
-}
+// ACT_DEF(do_appcall)
+// {
+// 	return do_appcall2(get_widget_vdui(ctx->widget));
+// }
 
 //--------------------------------------------------------------------------
 // brackets matching
@@ -3713,7 +3713,7 @@ static ssize_t idaapi callback(void *, hexrays_event_t event, va_list va)
 			} else if(new_maturity == CMAT_TRANS3) {
 				com_scan(cfunc);
 			}	else if(new_maturity == CMAT_FINAL)	{
-				apihashes_scan(cfunc);// before autorename_n_pull_comments: so comments be used for renaming
+				//apihashes_scan(cfunc);// before autorename_n_pull_comments: so comments be used for renaming
 				autorename_n_pull_comments(cfunc);
 				lit_scan(cfunc); // after autorename_n_pull_comments: to search literals in renamed indirect calls
 				make_if42blocks(cfunc);
@@ -3862,11 +3862,11 @@ static ssize_t idaapi ui_callback(void *user_data, int ncode, va_list va)
 		if(get_widget_type(widget) == BWN_DISASM) {
 			attach_action_to_popup(widget, p, ACT_NAME(decrypt_data));
 			attach_action_to_popup(widget, p, ACT_NAME(add_VT_struct));
-			if (get_view_renderer_type(widget) == TCCRT_GRAPH) {
-				attach_action_to_popup(widget, p, ACT_NAME(create_inline_gr), "Group nodes", SETMENU_APP);
-			} else {
-				attach_action_to_popup(widget, p, ACT_NAME(create_inline_sel));
-			}
+			// if (get_view_renderer_type(widget) == TCCRT_GRAPH) {
+			// 	attach_action_to_popup(widget, p, ACT_NAME(create_inline_gr), "Group nodes", SETMENU_APP);
+			// } else {
+			// 	attach_action_to_popup(widget, p, ACT_NAME(create_inline_sel));
+			// }
 		}
 	} else if( notification_code == ui_ready_to_run) {
 		//msg("[hrt] ui_ready_to_run\n");
@@ -4363,7 +4363,7 @@ void idaapi term(void)
 		unregister_idc_functions();
 		opt_done();
 		deinline_done();
-		apihashes_done();
+		//apihashes_done();
 		lit_done();
 		term_hexrays_plugin();
 		inited = false;

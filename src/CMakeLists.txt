@@ -2,8 +2,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.9)
 project(hrtng)
 
 #run ccmake to change IDASDK_VER
-SET(IDASDK_VER "90" CACHE STRING "90" )
-SET(IDASDK_DIR ${CMAKE_SOURCE_DIR}/../../idasdk${IDASDK_VER})
+SET(IDASDK_VER "84" CACHE STRING "84" )
+SET(IDASDK_DIR /home/tpo/tools/idapro8.4/idasdk_pro84)
 MESSAGE("${PROJECT_NAME}")
 MESSAGE("Using IDA SDK dir: ${IDASDK_DIR}")
 MESSAGE("-------------------")
@@ -23,7 +23,6 @@ INCLUDE(ida_plugin.cmake)
 
 ADD_IDA_PLUGIN(hrtng 
   hrtng.cpp
-  apihashes.cpp
   appcall.cpp
   appcall_view.cpp
   cast.cpp
